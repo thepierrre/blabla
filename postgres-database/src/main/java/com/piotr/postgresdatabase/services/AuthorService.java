@@ -1,7 +1,7 @@
 package com.piotr.postgresdatabase.services;
 
-import com.piotr.postgresdatabase.domain.Author;
+import com.piotr.postgresdatabase.domain.entities.AuthorEntity;
 
-public class AuthorService {
-    Author createAuthor(Author author);
+public interface AuthorService {
+    AuthorEntity createAuthor(AuthorEntity authorEntity);
 }

@@ -1,16 +1,14 @@
 package com.piotr.postgresdatabase.repositories;
 
 import com.piotr.postgresdatabase.TestDataUtil;
-import com.piotr.postgresdatabase.domain.Author;
+import com.piotr.postgresdatabase.domain.entities.AuthorEntity;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.oauth2.server.servlet.OAuth2AuthorizationServerAutoConfiguration;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -31,73 +29,73 @@ public class AuthorRepositoryIntegrationTests {
 
     @Test
     public void testThatAuthorCanBeCreatedAndRecalled() {
-        Author author = TestDataUtil.createTestAuthorA();
-        underTest.save(author); // same as "create" in JDBC
-        Optional<Author> result = underTest.findById(author.getId()); // same as "findOne" in JDBC
+        AuthorEntity authorEntity = TestDataUtil.createTestAuthorA();
+        underTest.save(authorEntity); // same as "create" in JDBC
+        Optional<AuthorEntity> result = underTest.findById(authorEntity.getId()); // same as "findOne" in JDBC
         assertThat(result).isPresent();
-        assertThat(result.get()).isEqualTo(author);
+        assertThat(result.get()).isEqualTo(authorEntity);
     }
 
     @Test
     public void testThatMultipleAuthorsCanBeCreatedAndRecalled() {
-        Author authorA = TestDataUtil.createTestAuthorA();
-        underTest.save(authorA);
-        Author authorB = TestDataUtil.createTestAuthorB();
-        underTest.save(authorB);
-        Author authorC = TestDataUtil.createTestAuthorC();
-        underTest.save(authorC);
+        AuthorEntity authorEntityA = TestDataUtil.createTestAuthorA();
+        underTest.save(authorEntityA);
+        AuthorEntity authorEntityB = TestDataUtil.createTestAuthorB();
+        underTest.save(authorEntityB);
+        AuthorEntity authorEntityC = TestDataUtil.createTestAuthorC();
+        underTest.save(authorEntityC);
 
-        Iterable<Author> result = underTest.findAll(); // same as "find" in JDBC; Iterable instead of List
+        Iterable<AuthorEntity> result = underTest.findAll(); // same as "find" in JDBC; Iterable instead of List
         assertThat(result)
                 .hasSize(3)
-                .containsExactly(authorA, authorB, authorC);
+                .containsExactly(authorEntityA, authorEntityB, authorEntityC);
 
     }
 
     @Test
     public void testThatAuthorCanBeUpdated() {
-        Author authorA = TestDataUtil.createTestAuthorA();
-        underTest.save(authorA);
-        authorA.setName("UPDATED");
-        underTest.save(authorA);
-        Optional<Author> result = underTest.findById(authorA.getId());
+        AuthorEntity authorEntityA = TestDataUtil.createTestAuthorA();
+        underTest.save(authorEntityA);
+        authorEntityA.setName("UPDATED");
+        underTest.save(authorEntityA);
+        Optional<AuthorEntity> result = underTest.findById(authorEntityA.getId());
         assertThat(result).isPresent();
-        assertThat(result.get()).isEqualTo(authorA);
+        assertThat(result.get()).isEqualTo(authorEntityA);
         // 'save' is used both for creating and updating in Spring Data JPA
     }
 
     @Test
     public void testThatAuthorCanBeDeleted() {
-        Author authorA = TestDataUtil.createTestAuthorA();
-        underTest.save(authorA);
-        underTest.deleteById(authorA.getId());
-        Optional<Author> result = underTest.findById(authorA.getId());
+        AuthorEntity authorEntityA = TestDataUtil.createTestAuthorA();
+        underTest.save(authorEntityA);
+        underTest.deleteById(authorEntityA.getId());
+        Optional<AuthorEntity> result = underTest.findById(authorEntityA.getId());
         assertThat(result).isEmpty();
     }
 
     @Test
     public void testThatGetAuthorsWithAgeLessThan() {
-        Author testAuthorA = TestDataUtil.createTestAuthorA();
-        underTest.save(testAuthorA);
-        Author testAuthorB = TestDataUtil.createTestAuthorB();
-        underTest.save(testAuthorB);
-        Author testAuthorC = TestDataUtil.createTestAuthorC();
-        underTest.save(testAuthorC);
+        AuthorEntity testAuthorAEntity = TestDataUtil.createTestAuthorA();
+        underTest.save(testAuthorAEntity);
+        AuthorEntity testAuthorBEntity = TestDataUtil.createTestAuthorB();
+        underTest.save(testAuthorBEntity);
+        AuthorEntity testAuthorCEntity = TestDataUtil.createTestAuthorC();
+        underTest.save(testAuthorCEntity);
 
-        Iterable<Author> result = underTest.ageLessThan(50);
-        assertThat(result).containsExactly(testAuthorB, testAuthorC);
+        Iterable<AuthorEntity> result = underTest.ageLessThan(50);
+        assertThat(result).containsExactly(testAuthorBEntity, testAuthorCEntity);
     }
 
     @Test
     public void testThatGetAuthorsWithAgeGreaterThan() {
-        Author testAuthorA = TestDataUtil.createTestAuthorA();
-        underTest.save(testAuthorA);
-        Author testAuthorB = TestDataUtil.createTestAuthorB();
-        underTest.save(testAuthorB);
-        Author testAuthorC = TestDataUtil.createTestAuthorC();
-        underTest.save(testAuthorC);
+        AuthorEntity testAuthorAEntity = TestDataUtil.createTestAuthorA();
+        underTest.save(testAuthorAEntity);
+        AuthorEntity testAuthorBEntity = TestDataUtil.createTestAuthorB();
+        underTest.save(testAuthorBEntity);
+        AuthorEntity testAuthorCEntity = TestDataUtil.createTestAuthorC();
+        underTest.save(testAuthorCEntity);
 
-        Iterable<Author> result = underTest.findAuthorsWithAgeGreaterThan(50);
-        assertThat(result).containsExactly(testAuthorA);
+        Iterable<AuthorEntity> result = underTest.findAuthorsWithAgeGreaterThan(50);
+        assertThat(result).containsExactly(testAuthorAEntity);
     }
 }

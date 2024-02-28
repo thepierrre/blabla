@@ -8,11 +8,11 @@ import org.springframework.stereotype.Component;
 
 // the @Component annotation makes the class a @Bean
 @Component
-public class AuthorMapperImpl implements Mapper<AuthorEntity, AuthorDto> {
+public class AuthorMapper implements Mapper<AuthorEntity, AuthorDto> {
 
     private ModelMapper modelMapper;
 
-    public AuthorMapperImpl(ModelMapper modelMapper) {
+    public AuthorMapper(ModelMapper modelMapper) {
         this.modelMapper = modelMapper;
     }
 

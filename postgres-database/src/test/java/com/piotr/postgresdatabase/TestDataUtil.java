@@ -1,5 +1,7 @@
 package com.piotr.postgresdatabase;
 
+import com.piotr.postgresdatabase.domain.dto.AuthorDto;
+import com.piotr.postgresdatabase.domain.dto.BookDto;
 import com.piotr.postgresdatabase.domain.entities.AuthorEntity;
 import com.piotr.postgresdatabase.domain.entities.BookEntity;
 
@@ -35,6 +37,14 @@ public final class TestDataUtil {
                 .isbn("978-1-3434-4333-0")
                 .title("The Shadow in the Attic")
                 .authorEntity(authorEntity)
+                .build();
+    }
+
+    public static BookDto createTestBookDtoA(final AuthorDto author) {
+        return BookDto.builder()
+                .isbn("978-1-2345-6789-0")
+                .title("The Shadow in the Attic")
+                .author(author)
                 .build();
     }
 

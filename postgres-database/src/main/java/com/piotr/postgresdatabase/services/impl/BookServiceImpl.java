@@ -3,8 +3,10 @@ package com.piotr.postgresdatabase.services.impl;
 import com.piotr.postgresdatabase.domain.entities.BookEntity;
 import com.piotr.postgresdatabase.repositories.BookRepository;
 import com.piotr.postgresdatabase.services.BookService;
+import org.hibernate.query.Page;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Pageable;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -31,6 +33,11 @@ public class BookServiceImpl implements BookService {
                 .stream(bookRepository.findAll().spliterator(),
                         false)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Page<BookEntity> findAll(Pageable pageable) {
+        return bookRepository.findAll(pageable);
     }
 
     @Override

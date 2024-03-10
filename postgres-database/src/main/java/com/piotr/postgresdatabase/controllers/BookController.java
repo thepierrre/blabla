@@ -4,10 +4,12 @@ import com.piotr.postgresdatabase.domain.dto.BookDto;
 import com.piotr.postgresdatabase.domain.entities.BookEntity;
 import com.piotr.postgresdatabase.mappers.Mapper;
 import com.piotr.postgresdatabase.services.BookService;
+import org.hibernate.query.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.print.Pageable;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -61,6 +63,17 @@ public class BookController {
         );
     }
 
+
+//    @GetMapping(path = "/books")
+////    public List<BookDto> listBooks() {
+////    List<BookEntity> books = bookService.findAll();
+////        return books.stream()
+////                .map(bookMapper::mapTo)
+////                .collect(Collectors.toList());
+//    public Page<BookDto> listBooks(Pageable pageable) {
+//        Page<BookEntity> books = bookService.findAll(pageable);
+//        return books.map(bookMapper::mapTo);
+//    }
 
     @GetMapping(path = "/books")
     public List<BookDto> listBooks() {
